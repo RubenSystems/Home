@@ -1,0 +1,21 @@
+[package]
+name = "ios_camera"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "home_rsct_ios_bind"
+crate-type = ["cdylib"]
+
+[target.'cfg(all(target_arch = "arm", target_os = "ios"))']
+rustflags = ["-C", "link-arg=-miphoneos-version-min=15.0"]
+
+#targets:
+# aarch64-apple-ios
+# aarch64-apple-ios-macabi
+# aarch64-apple-darwin
+
+[dependencies]
+lazy_static = "1.4.0"
+rsct = { git = "https://github.com/rubensystems/rsct", version = "0.1.0" }
+tokio = {version = "1.32.0", features=["rt-multi-thread"]}
