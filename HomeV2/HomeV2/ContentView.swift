@@ -7,15 +7,80 @@
 
 import SwiftUI
 
+
+class LivestreamManager : ObservableObject {
+
+    @Published public var image: UIImage? = nil
+    
+    struct ConfigInfo {
+        let server: UnsafeMutableRawPointer
+        let scheduler: UnsafeMutableRawPointer
+    }
+    
+    private var data: Data? = nil
+    private var config: ConfigInfo? = nil
+    private var is_livestreaming = false
+    private let semaphore = DispatchSemaphore(value: 1)
+    
+    init() {
+        self.configure()
+    }
+    
+    
+    private func configure() {
+        let sched = create_new_scheduler()!
+        
+        self.config = ConfigInfo(
+            server: create_server("5254".cString(using: .utf8)!, 4, sched),
+            scheduler: sched
+        )
+    }
+    
+    private func tear_down() {
+        print("REMINDER: FREE THE MEMORY!!!")
+    }
+    
+    public func start_livestream() {
+        self.is_livestreaming = true
+        guard let config = self.config else {return}
+        
+        DispatchQueue.global().async{
+            while self.is_livestreaming {
+                let camera_data = listen_once(config.server, config.scheduler);
+                DispatchQueue.main.async {
+                    self.semaphore.wait()
+                    self.data = Data(bytes: camera_data.data, count: camera_data.length)
+                    if let image = UIImage(data: self.data!) {
+                        self.image = image
+                    }
+                    self.semaphore.signal()
+                    drop_camera_data(camera_data)
+                }
+            }
+        }
+    }
+    
+    public func stop_livestream() {
+        self.is_livestreaming = false
+    }
+}
+
 struct ContentView: View {
+    var data: Data? = nil
+    @StateObject var livestream_manager = LivestreamManager()
+    
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            if let image = self.livestream_manager.image {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(image.size.width/image.size.height, contentMode: .fit)
+                    .cornerRadius(25)
+            }
+            Spacer()
         }
-        .padding()
+        .onAppear(perform: self.livestream_manager.start_livestream)
     }
 }
 

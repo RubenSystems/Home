@@ -5,10 +5,8 @@ edition = "2021"
 
 [lib]
 name = "home_rsct_ios_bind"
-crate-type = ["cdylib"]
+crate-type = ["staticlib", "cdylib"]
 
-[target.'cfg(all(target_arch = "arm", target_os = "ios"))']
-rustflags = ["-C", "link-arg=-miphoneos-version-min=15.0"]
 
 #targets:
 # aarch64-apple-ios

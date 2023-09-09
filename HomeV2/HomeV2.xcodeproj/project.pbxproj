@@ -11,7 +11,8 @@
 		5D5837532AA860F000FCFA0E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5837522AA860F000FCFA0E /* ContentView.swift */; };
 		5D5837552AA860F100FCFA0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D5837542AA860F100FCFA0E /* Assets.xcassets */; };
 		5D5837592AA860F100FCFA0E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D5837582AA860F100FCFA0E /* Preview Assets.xcassets */; };
-		5D5837622AA8630C00FCFA0E /* libhome_rsct_ios_bind.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D5837602AA8621400FCFA0E /* libhome_rsct_ios_bind.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		5DDA039D2AAA276300705F36 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DDA039C2AAA274D00705F36 /* libresolv.tbd */; };
+		5DDA03AB2AAB9BC300705F36 /* libhome_rsct_ios_bind.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DDA039A2AAA26F200705F36 /* libhome_rsct_ios_bind.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,9 @@
 		5D5837602AA8621400FCFA0E /* libhome_rsct_ios_bind.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhome_rsct_ios_bind.a; path = ../rsct_working/ios_camera/target/release/libhome_rsct_ios_bind.a; sourceTree = "<group>"; };
 		5D5837632AA8631B00FCFA0E /* rsct_bindings_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rsct_bindings_header.h; sourceTree = "<group>"; };
 		5D5837642AA8636A00FCFA0E /* HomeV2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HomeV2-Bridging-Header.h"; sourceTree = "<group>"; };
+		5DDA039A2AAA26F200705F36 /* libhome_rsct_ios_bind.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhome_rsct_ios_bind.a; path = ../ios_rsct_bindings/target/universal/release/libhome_rsct_ios_bind.a; sourceTree = "<group>"; };
+		5DDA039C2AAA274D00705F36 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk/usr/lib/libresolv.tbd; sourceTree = DEVELOPER_DIR; };
+		5DDA03A92AAB6BC600705F36 /* release */ = {isa = PBXFileReference; lastKnownFileType = folder; name = release; path = ../ios_rsct_bindings/target/universal/release; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,7 +35,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D5837622AA8630C00FCFA0E /* libhome_rsct_ios_bind.a in Frameworks */,
+				5DDA039D2AAA276300705F36 /* libresolv.tbd in Frameworks */,
+				5DDA03AB2AAB9BC300705F36 /* libhome_rsct_ios_bind.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +85,9 @@
 		5D58375F2AA8621300FCFA0E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5DDA03A92AAB6BC600705F36 /* release */,
+				5DDA039C2AAA274D00705F36 /* libresolv.tbd */,
+				5DDA039A2AAA26F200705F36 /* libhome_rsct_ios_bind.a */,
 				5D5837602AA8621400FCFA0E /* libhome_rsct_ios_bind.a */,
 			);
 			name = Frameworks;
@@ -300,6 +308,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "/Users/rubenticehurst-james/Desktop/HomeApp/ios_rsct_bindings/target/universal/release";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rubensystems.HomeV2;
@@ -341,6 +350,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "/Users/rubenticehurst-james/Desktop/HomeApp/ios_rsct_bindings/target/universal/release";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rubensystems.HomeV2;
