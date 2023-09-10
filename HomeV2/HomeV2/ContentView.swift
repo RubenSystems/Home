@@ -17,7 +17,6 @@ class LivestreamManager : ObservableObject {
         let scheduler: UnsafeMutableRawPointer
     }
     
-    private var data: Data? = nil
     private var config: ConfigInfo? = nil
     private var is_livestreaming = false
     private let semaphore = DispatchSemaphore(value: 1)
@@ -47,16 +46,22 @@ class LivestreamManager : ObservableObject {
         DispatchQueue.global().async{
             while self.is_livestreaming {
                 let camera_data = listen_once(config.server, config.scheduler);
-                DispatchQueue.main.async {
-                    self.semaphore.wait()
-                    self.data = Data(bytes: camera_data.data, count: camera_data.length)
-                    if let image = UIImage(data: self.data!) {
-                        self.image = image
-                    }
-                    self.semaphore.signal()
-                    drop_camera_data(camera_data)
-                }
+                self.set_image(to: camera_data)
             }
+        }
+    }
+    
+    private func set_image(to camera_data: CameraData) {
+        DispatchQueue.main.async {
+            let data = Data(bytes: camera_data.data, count: camera_data.length)
+            if let image = UIImage(data: data) {
+                // enter shared memory
+                self.semaphore.wait()
+                self.image = image
+                self.semaphore.signal()
+                // exit shared memory
+            }
+            drop_camera_data(camera_data)
         }
     }
     
