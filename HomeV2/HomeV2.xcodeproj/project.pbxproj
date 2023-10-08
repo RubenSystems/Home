@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D3E46F72AD2E23B001090E1 /* libhome_rsct_ios_bind.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DDA039A2AAA26F200705F36 /* libhome_rsct_ios_bind.a */; };
 		5D5837512AA860F000FCFA0E /* HomeV2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5837502AA860F000FCFA0E /* HomeV2App.swift */; };
 		5D5837532AA860F000FCFA0E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5837522AA860F000FCFA0E /* ContentView.swift */; };
 		5D5837552AA860F100FCFA0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D5837542AA860F100FCFA0E /* Assets.xcassets */; };
 		5D5837592AA860F100FCFA0E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D5837582AA860F100FCFA0E /* Preview Assets.xcassets */; };
+		5DAB8E112AD007330004F807 /* LivestreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAB8E102AD007330004F807 /* LivestreamManager.swift */; };
+		5DAB8E132AD007B80004F807 /* LivestreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAB8E122AD007B80004F807 /* LivestreamView.swift */; };
 		5DDA039D2AAA276300705F36 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DDA039C2AAA274D00705F36 /* libresolv.tbd */; };
-		5DDA03AB2AAB9BC300705F36 /* libhome_rsct_ios_bind.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DDA039A2AAA26F200705F36 /* libhome_rsct_ios_bind.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		5D5837602AA8621400FCFA0E /* libhome_rsct_ios_bind.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhome_rsct_ios_bind.a; path = ../rsct_working/ios_camera/target/release/libhome_rsct_ios_bind.a; sourceTree = "<group>"; };
 		5D5837632AA8631B00FCFA0E /* rsct_bindings_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rsct_bindings_header.h; sourceTree = "<group>"; };
 		5D5837642AA8636A00FCFA0E /* HomeV2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HomeV2-Bridging-Header.h"; sourceTree = "<group>"; };
+		5DAB8E102AD007330004F807 /* LivestreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivestreamManager.swift; sourceTree = "<group>"; };
+		5DAB8E122AD007B80004F807 /* LivestreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivestreamView.swift; sourceTree = "<group>"; };
 		5DDA039A2AAA26F200705F36 /* libhome_rsct_ios_bind.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhome_rsct_ios_bind.a; path = ../ios_rsct_bindings/target/universal/release/libhome_rsct_ios_bind.a; sourceTree = "<group>"; };
 		5DDA039C2AAA274D00705F36 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk/usr/lib/libresolv.tbd; sourceTree = DEVELOPER_DIR; };
 		5DDA03A92AAB6BC600705F36 /* release */ = {isa = PBXFileReference; lastKnownFileType = folder; name = release; path = ../ios_rsct_bindings/target/universal/release; sourceTree = "<group>"; };
@@ -36,7 +40,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DDA039D2AAA276300705F36 /* libresolv.tbd in Frameworks */,
-				5DDA03AB2AAB9BC300705F36 /* libhome_rsct_ios_bind.a in Frameworks */,
+				5D3E46F72AD2E23B001090E1 /* libhome_rsct_ios_bind.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +67,8 @@
 		5D58374F2AA860F000FCFA0E /* HomeV2 */ = {
 			isa = PBXGroup;
 			children = (
+				5DAB8E0F2AD0070E0004F807 /* Views */,
+				5DAB8E0E2AD007050004F807 /* Managers */,
 				5D5837502AA860F000FCFA0E /* HomeV2App.swift */,
 				5D5837522AA860F000FCFA0E /* ContentView.swift */,
 				5D5837542AA860F100FCFA0E /* Assets.xcassets */,
@@ -91,6 +97,22 @@
 				5D5837602AA8621400FCFA0E /* libhome_rsct_ios_bind.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5DAB8E0E2AD007050004F807 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				5DAB8E102AD007330004F807 /* LivestreamManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		5DAB8E0F2AD0070E0004F807 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5DAB8E122AD007B80004F807 /* LivestreamView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,7 +186,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DAB8E112AD007330004F807 /* LivestreamManager.swift in Sources */,
 				5D5837532AA860F000FCFA0E /* ContentView.swift in Sources */,
+				5DAB8E132AD007B80004F807 /* LivestreamView.swift in Sources */,
 				5D5837512AA860F000FCFA0E /* HomeV2App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,7 +338,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rubensystems.HomeV2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "HomeV2/HomeV2-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -356,7 +382,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rubensystems.HomeV2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "HomeV2/HomeV2-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
