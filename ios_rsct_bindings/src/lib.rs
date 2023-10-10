@@ -4,13 +4,14 @@ use rsct::{allocators::basic_allocator::BasicAllocator, server::Server};
 use std::ffi::CStr;
 use std::os::raw::c_char;
 type AllocatorType = BasicAllocator;
+
 // use tokio::time::{sleep, Duration};
 
 #[no_mangle]
 pub extern "C" fn create_new_scheduler() -> *mut std::ffi::c_void {
     let box_val = Box::new(
-        tokio::runtime::Builder::new_multi_thread()
-            .worker_threads(4)
+        tokio::runtime::Builder::new_current_thread()
+            .worker_threads(1)
             .enable_all()
             .build()
             .unwrap(),
@@ -21,7 +22,9 @@ pub extern "C" fn create_new_scheduler() -> *mut std::ffi::c_void {
 
 #[no_mangle]
 pub extern "C" fn create_new_reassembler() -> *mut std::ffi::c_void {
-    let box_val = Box::new(Reassembler::<AllocatorType>::new(AllocatorType {}));
+    let box_val = Box::new(
+        Reassembler::<AllocatorType>::new(AllocatorType {})
+    );
 
     Box::into_raw(box_val) as *mut std::ffi::c_void
 }
@@ -30,7 +33,7 @@ pub extern "C" fn create_new_reassembler() -> *mut std::ffi::c_void {
 pub extern "C" fn create_server(
     port: *const u8,
     portlen: usize,
-    sched: *mut std::ffi::c_void
+    sched: *mut std::ffi::c_void,
 ) -> *mut std::ffi::c_void {
     let portstring = unsafe {
         std::str::from_utf8_unchecked(std::slice::from_raw_parts(port, portlen)).to_owned()
@@ -61,7 +64,7 @@ async fn recieve_whole_message(
 ) -> (Option<Client>, Vec<u8>) {
     loop {
         let recieved = server.recieve_once().await;
-
+        
         let data = match recieved {
             Ok(d) => d,
             Err(_) => continue,
@@ -91,35 +94,15 @@ pub extern "C" fn listen_once(
         Box::from_raw(sched as *mut tokio::runtime::Runtime)
     });
 
-    let res =
-        scheduler.block_on(async { 
-            tokio::select! {
-                message = async { 
-                    let message = recieve_whole_message(&server, &mut reassembler).await;
-                    Some(message)
-                } => message,
-                // timeout = async {
-                //     sleep(Duration::from_millis(timeout)).await;
-                //     None   
-                // } => timeout
-            }
+    let message = std::mem::ManuallyDrop::new(
+        scheduler.block_on(async { recieve_whole_message(&server, &mut reassembler).await.1 }));
 
-            
-        });
 
-    match res {
-        Some((_, message)) => CameraData {
-            data: message.as_ptr() as *const std::ffi::c_void,
-            length: message.len(),
-            capacity: message.capacity(),
-            success: true,
-        },
-        None => CameraData {
-            data: 0 as *mut std::ffi::c_void,
-            length: 0,
-            capacity: 0,
-            success: false,
-        }
+    CameraData {
+        data: message.as_ptr() as *const std::ffi::c_void,
+        length: message.len(),
+        capacity: message.capacity(),
+        success: true,
     }
 }
 
@@ -145,10 +128,8 @@ pub extern "C" fn send_connection_ping(
 
 #[no_mangle]
 pub extern "C" fn drop_camera_data(data: CameraData) {
-    if data.success == true {
         let vec = unsafe { Vec::from_raw_parts(data.data as *mut u8, data.length, data.capacity) };
         drop(vec);
-    }
 }
 
 #[no_mangle]

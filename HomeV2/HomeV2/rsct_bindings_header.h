@@ -22,11 +22,11 @@ void * create_new_scheduler();
 void * create_new_reassembler();
 
 // Function to create a server and return a void pointer to it.
-void * create_server(const char * port, size_t portlen, void * sched, size_t width, size_t height);
+void * create_server(const char * port, size_t portlen, void * sched);
 
 // Function to listen on the server and return a Vec<u8> as a char array.
 // The caller is responsible for freeing the memory allocated for the char array.
-struct CameraData listen_once(void * raw_server, void * sched, void * reassembler, uint64_t timeout);
+struct CameraData listen_once(void * raw_server, void * sched, void * reassembler);
 
 struct CameraData send_connection_ping(void * raw_server, void * sched, const char * client_string);
 

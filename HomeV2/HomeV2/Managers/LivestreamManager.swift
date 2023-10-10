@@ -31,7 +31,7 @@ class LivestreamManager : ObservableObject {
         let sched = create_new_scheduler()!
         
         self.config = ConfigInfo(
-            server: create_server("5254".cString(using: .utf8)!, 4, sched, 2328, 1748),
+            server: create_server("5254".cString(using: .utf8)!, 4, sched),
             scheduler: sched,
             reassembler: create_new_reassembler()
         )
@@ -54,7 +54,7 @@ class LivestreamManager : ObservableObject {
         
         DispatchQueue.global().async{
             while self.is_livestreaming {
-                let camera_data = listen_once(config.server, config.scheduler, config.reassembler, 100);
+                let camera_data = listen_once(config.server, config.scheduler, config.reassembler);
                 if !self.is_livestreaming {
                     self.tear_down()
                 }
@@ -81,7 +81,7 @@ class LivestreamManager : ObservableObject {
             } else {
                 print("BROKEN_IMAGE_ERROR")
             }
-//            drop_camera_data(camera_data)
+            drop_camera_data(camera_data)
             
         }
     }
